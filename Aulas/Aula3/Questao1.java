@@ -3,7 +3,7 @@ package Aula3;
 public class Questao1 {
     String nome;
     String departamento;
-    Questao6 dataDeEntrada;
+    String dataDeEntrada;
     String rg;
     double salario;
     void recebeAumento(double valor){
