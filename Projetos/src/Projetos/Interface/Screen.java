@@ -1,18 +1,21 @@
 package Projetos.Interface;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.Objects;
 
 public class Screen {
-    JTextField num1;
-    JTextField num2;
-    JTextField sinal;
+    JTextField expressao;
+    boolean verificacao = true;
+    String sinal;
+    String sinais_possiveis[] = {"-","*","+","**","/","//"};
+    double numero1 = 0;
+    double numero2 = 0;
+    double Resultado;
     public Screen() {
         JFrame jFrame = new JFrame("Teste");
         jFrame.setVisible(true);
         jFrame.setSize(800,500);
-        //jFrame.setTitle("Teste");
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setLayout(null);
 
@@ -26,43 +29,38 @@ public class Screen {
         jButton.setFocusPainted(false);
         jFrame.add(jButton);
 
-        num1 = new JTextField();
-        num1.setBounds(100,100,100,100);
-        num1.setFont(new Font("Arial",Font.ITALIC,40));
+        expressao = new JTextField();
+        expressao.setBounds(100,100,250,100);
+        expressao.setFont(new Font("Arial",Font.ITALIC,40));
 
-        sinal = new JTextField();
-        sinal.setBounds(200,100,100,100);
-        sinal.setFont(new Font("Arial",Font.ITALIC,40));
-
-
-        num2 = new JTextField();
-        num2.setBounds(300,100,100,100);
-        num2.setFont(new Font("Arial",Font.ITALIC,40));
-
-
-        jFrame.add(num1);
-        jFrame.add(num2);
-        jFrame.add(sinal);
-
+        jFrame.add(expressao);
         jButton.addActionListener(this::teste);
-
         }
         public void teste(ActionEvent actionEvent) {
-        Double Num1 = Double.parseDouble(num1.getText());
-        Double Num2 = Double.parseDouble(num2.getText());
-        double Resultado = 0;
 
-            switch (sinal.getText()) {
-                case "+" -> Resultado = Num1 + Num2;
-                case "-" -> Resultado = Num1 - Num2;
-                case "*" -> Resultado = Num1 * Num2;
-                case "/" -> Resultado = Num1 / Num2;
-                case "**" -> Resultado = Math.pow(Num1,Num2);
-                case "//" -> Resultado = Math.pow(Num1,1/Num2);
-                default -> Resultado = Double.parseDouble("Você digitou algo errado");
+        String expressaodiv[] = expressao.getText().split(" ");
+        sinal = expressaodiv[1];
+
+        try {
+            numero1 = Double.parseDouble(expressaodiv[0]);
+            numero2 = Double.parseDouble(expressaodiv[2]);
+        } catch (NumberFormatException ignored){
+            sinal = "@";
+        }
+
+        Resultado = 0;
+
+            switch (sinal) {
+                case "+" -> Resultado = numero1 + numero2;
+                case "-" -> Resultado = numero1 - numero2;
+                case "*" -> Resultado = numero1 * numero2;
+                case "/" -> Resultado = numero1 / numero2;
+                case "**" -> Resultado = Math.pow(numero1,numero2);
+                case "//" -> Resultado = Math.pow(numero1,1/numero2);
+                default -> verificacao = false;
             }
 
 
-        JOptionPane.showMessageDialog(null, (Resultado), "Você escreveu",JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, ((verificacao)?Resultado:"Você digitou algo errado"), "Você escreveu",JOptionPane.ERROR_MESSAGE);
         }
 }
