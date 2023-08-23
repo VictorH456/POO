@@ -1,0 +1,12 @@
+package Aula4;
+
+public class Questao1 {
+    //Classe empresa
+    Funcionario[] empregados;
+    String cnpj;
+    private int funcionarios;
+    void adiciona(Funcionario f){
+            this.empregados[funcionarios] = f;
+
+    }
+}
